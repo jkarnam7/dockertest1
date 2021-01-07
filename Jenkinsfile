@@ -24,7 +24,7 @@ pipeline {
         stage('Deploy to Docker Host') {
           steps {
             sh    'docker -H tcp://191.19.1.215:2375 stop prodwebapp1 || true'
-            sh    'docker -H tcp://191.19.1.215:2375 run --rm -dit --name prodwebapp1 --hostname prodwebapp1 -p 8001:80 jaswanthk7/pipelinetestprod:${BUILD_NUMBER}'
+            sh    'docker -H tcp://191.19.1.215:2375 run --rm -dit --name prodwebapp1 --hostname prodwebapp1 -p 8000:80 jaswanthk7/pipelinetestprod:${BUILD_NUMBER}'
             }
         }
 
