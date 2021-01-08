@@ -23,15 +23,15 @@ pipeline {
 
         stage('Deploy to Docker Host') {
           steps {
-            sh    'docker -H tcp://191.19.1.215:2375 stop prodwebapp1 || true'
-            sh    'docker -H tcp://191.19.1.215:2375 run --rm -dit --name prodwebapp1 --hostname prodwebapp1 -p 8000:80 jaswanthk7/pipelinetestprod:${BUILD_NUMBER}'
+            sh    'docker -H tcp://191.19.1.215:2375 stop featurewebapp3 || true'
+            sh    'docker -H tcp://191.19.1.215:2375 run --rm -dit --name prodwebapp1 --hostname featurewebapp3 -p 11000:80 jaswanthk7/pipelinetestprod:${BUILD_NUMBER}'
             }
         }
 
         stage('Check WebApp Rechability') {
           steps {
           sh 'sleep 10s'
-          sh ' curl http://191.19.1.215:8000'
+          sh ' curl http://191.19.1.215:11000'
           }
         }
 
