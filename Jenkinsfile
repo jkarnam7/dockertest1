@@ -11,27 +11,29 @@ pipeline {
 
         stage('Build Docker Image') {
           steps {
+            sh 'ls -al'
+            sh 'pwd'
             sh 'docker build -t jaswanthk7/pipelinetestprod:${BUILD_NUMBER} .'
             }
         }
 
         stage('Push Image to Docker Hub') {
-          steps {
+            steps {
            sh    'docker push jaswanthk7/pipelinetestprod:${BUILD_NUMBER}'
            }
         }
 
         stage('Deploy to Docker Host') {
           steps {
-            sh    'docker -H tcp://191.19.1.215:2375 stop featurewebapp3 || true'
-            sh    'docker -H tcp://191.19.1.215:2375 run --rm -dit --name featurewebapp3 --hostname featurewebapp3 -p 11000:80 jaswanthk7/pipelinetestprod:${BUILD_NUMBER}'
+            sh    'docker -H tcp://191.19.1.139:2375 stop featurewebapp3 || true'
+            sh    'docker -H tcp://191.19.1.139:2375 run --rm -dit --name featurewebapp3 --hostname featurewebapp3 -p 11000:80 jaswanthk7/pipelinetestprod:${BUILD_NUMBER}'
             }
         }
 
         stage('Check WebApp Rechability') {
           steps {
           sh 'sleep 10s'
-          sh ' curl http://191.19.1.215:11000'
+          sh ' curl http://191.19.1.139:11000'
           }
         }
 
